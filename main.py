@@ -18,17 +18,11 @@ for i in range(0, len(TEXT), 2):
 
 
 def cript(b, k):
-    result = []
-    for i in b:
-        result.append(i[1] + chr(ord(i[0]) ^ ord(k[0])))
-    return result
+    return [i[1] + chr(ord(i[0]) ^ ord(k[0])) for i in b]
 
 
 def decript(b, k):
-    result = []
-    for i in b:
-        result.append(chr(ord(i[1]) ^ ord(k[0])) + i[0])
-    return result
+    return [chr(ord(i[1]) ^ ord(k[0])) + i[0] for i in b]
 
 
 for i in range(0, ROUNDS):
