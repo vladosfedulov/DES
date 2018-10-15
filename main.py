@@ -1,48 +1,42 @@
-#name Владислав
+# name Владислав
 ROUNDS = 16
-KEY = "Bладислав"
+KEY = 'Bладислав'
 TEXT = 'Куй железо не отходя от кассы'
-Block = []
-sch = len(KEY) - 1
+block = []
+sch = 0
 
 
-while ROUNDS >= len(KEY)*2:
+while ROUNDS > len(KEY):
     KEY += KEY
-    sch = len(KEY) - 1
 
-En1 = []
-En0 = []
-LenTXT = len(TEXT)
 
-if (LenTXT % 2) == 1:
+if (len(TEXT) % 2) == 1:
     TEXT = TEXT + ' '
 
 for i in range(0, len(TEXT), 2):
-    Block.append(TEXT[i:i+2])
+    block.append(TEXT[i:i + 2])
 
 
-def incript(b, k):
-    block2 = []
+def cript(b, k):
+    result = []
     for i in b:
-        block2.append(i[1] + chr(ord(i[0]) ^ ord(k[0])))
-    return block2
+        result.append(i[1] + chr(ord(i[0]) ^ ord(k[0])))
+    return result
 
 
 def decript(b, k):
-    block2 = []
+    result = []
     for i in b:
-        block2.append(chr(ord(i[1]) ^ ord(k[0])) + i[0])
-    return block2
+        result.append(chr(ord(i[1]) ^ ord(k[0])) + i[0])
+    return result
 
-
-for i in range(0,ROUNDS):
-    En1 = incript(Block, KEY[sch])
-    Block = En1
-    print("Раунд: ", i, " ", En1)
-    sch -= 1
 
 for i in range(0, ROUNDS):
-    sch +=1
-    Dec = decript(Block, KEY[sch])
-    Block = Dec
-    print("Раунд: ", i, " ", Dec)
+    block = cript(block, KEY[sch])
+    print("Раунд: ", i, " ", block)
+    sch += 1
+
+for i in range(0, ROUNDS):
+    sch -= 1
+    block = decript(block, KEY[sch])
+    print("Раунд: ", i, " ", block)
